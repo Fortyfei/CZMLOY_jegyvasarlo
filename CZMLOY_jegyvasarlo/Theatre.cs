@@ -25,9 +25,9 @@ namespace CZMLOY_jegyvasarlo
             seats.Add(s);
         }
 
-        public List<Seat> getOccupied(int playID)
+        public List<int> getOccupied(int playID)
         {
-            List<Seat> occupied = new List<Seat>();
+            List<int> occupied = new List<int>();
             DataTable dt = new DataTable();
             SQLiteCommand cmd = new SQLiteCommand("SELECT * FROM VETELEK WHERE eloadas_id="+playID+"",db.GetConnecton());
             SQLiteDataAdapter sda=new SQLiteDataAdapter(cmd);
@@ -35,20 +35,16 @@ namespace CZMLOY_jegyvasarlo
             foreach (DataRow r in dt.Rows)
                 {
                     int id = int.Parse(r[0].ToString());
-                    int pos = int.Parse(r[1].ToString());
-                    int row = int.Parse(r[2].ToString());
-                    int col = int.Parse(r[3].ToString());
-                    Seat s = new Seat(id, pos, row, col);
-                    occupied.Add(s);
+                    occupied.Add(id);
                 }
             return occupied;
         }
 
-        public void setAvailabiity(List<Seat> o)
+        public void setAvailabiity(List<int> o)
         {
             foreach(Seat s in seats)
             {
-                if (o.Contains(s)) s.Free=false;
+                if (o.Contains(s.Id)) s.Free=false;
             }
         }
     }
