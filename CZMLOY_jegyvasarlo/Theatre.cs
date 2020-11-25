@@ -198,7 +198,7 @@ namespace CZMLOY_jegyvasarlo
             {
                 for (int j = 0; j < 8; ++j)
                 {
-                    ret.Add(lower[i, j]);
+                    ret.Add(upper[i, j]);
                 }
             }
             return ret;

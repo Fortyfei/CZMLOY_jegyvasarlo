@@ -24,6 +24,8 @@ namespace CZMLOY_jegyvasarlo
         Theatre th;
         Customer custormer;
 
+        
+
         private int selectedPlayId;
         private List<Play> listofPlays=new List<Play>();
 
@@ -31,8 +33,8 @@ namespace CZMLOY_jegyvasarlo
         {
             InitializeComponent();
             th = new Theatre(db);
-            custormer = new Customer();
-            dg_tickets.DataSource = custormer.Reserved;
+            custormer = new Customer(dg_tickets);
+            btn_cupon.Click += new EventHandler(cuponClick);
             try
             {
                 cmd = new SQLiteCommand("Select * from ELOADASOK", db.GetConnecton());
@@ -76,7 +78,7 @@ namespace CZMLOY_jegyvasarlo
             foreach(Seat s in th.getLowerSeats())
             {
                 Button btn = s.setupButton();
-                btn.Click += new EventHandler(clicked);
+                btn.Click += new EventHandler(clickedLower);
                 if (i % 10 == 0) pn_floor.SetFlowBreak(btn, true);
                 pn_floor.Controls.Add(btn);
                 ++i;
@@ -85,7 +87,7 @@ namespace CZMLOY_jegyvasarlo
             foreach (Seat s in th.getUpperSeats())
             {
                 Button btn = s.setupButton();
-                btn.Click += new EventHandler(clicked);
+                btn.Click += new EventHandler(clickedUpper);
                 if (i % 8 == 0) pn_upper.SetFlowBreak(btn, true);
                 pn_upper.Controls.Add(btn);
                 ++i;
@@ -93,25 +95,45 @@ namespace CZMLOY_jegyvasarlo
 
         }
 
-        private void clicked(object sender,EventArgs e)
+        private void clickedLower(object sender, EventArgs e)
         {
             Button btn = sender as Button;
             Seat s = th.getSeatById(int.Parse(btn.Name));
-            Button find= pn_floor.Controls.Find(btn.Name,true).FirstOrDefault() as Button;
+            Button find = pn_floor.Controls.Find(btn.Name, true).FirstOrDefault() as Button;
             if (s.Free)
             {
                 custormer.addSeat(s);
                 s.Free = false;
                 s.Choosen = true;
                 find.BackColor = Color.Yellow;
-                //MessageBox.Show("Added");
-            }else if (s.Choosen)
+            }
+            else if (s.Choosen)
             {
                 custormer.removeSeat(s);
                 s.Free = true;
                 s.Choosen = false;
                 find.BackColor = Color.Green;
-                //MessageBox.Show("Removed");
+            }
+        }
+
+        private void clickedUpper(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            Seat s = th.getSeatById(int.Parse(btn.Name));
+            Button find = pn_upper.Controls.Find(btn.Name, true).FirstOrDefault() as Button;
+            if (s.Free)
+            {
+                custormer.addSeat(s);
+                s.Free = false;
+                s.Choosen = true;
+                find.BackColor = Color.Yellow;
+            }
+            else if (s.Choosen)
+            {
+                custormer.removeSeat(s);
+                s.Free = true;
+                s.Choosen = false;
+                find.BackColor = Color.Green;
             }
         }
 
@@ -126,6 +148,11 @@ namespace CZMLOY_jegyvasarlo
                 }
             }
             return 0;
+        }
+
+        private void cuponClick(object sender, EventArgs e)
+        {
+            custormer.getDiscount(tb_coupon.Text); 
         }
     }
 }

@@ -32,13 +32,14 @@ namespace CZMLOY_jegyvasarlo
             this.pos = pos;
             this.row = row;
             this.col = col;
-            this.cat = cat;
+            this.Cat = cat;
         }
 
         public bool Free { get => free; set => free = value; }
         public int Id { get => id; set => id = value; }
         public int Pos { get => pos; set => pos = value; }
         public bool Choosen { get => choosen; set => choosen = value; }
+        public string Cat { get => cat; set => cat = value; }
 
         public Button setupButton()
         {
@@ -55,6 +56,9 @@ namespace CZMLOY_jegyvasarlo
             free = true;
         }
 
-        
+        public String getPlace()
+        {
+            return col + "-" + row;
+        }
     }
 }

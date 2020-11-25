@@ -44,8 +44,9 @@
             this.tb_name = new System.Windows.Forms.TextBox();
             this.tb_coupon = new System.Windows.Forms.TextBox();
             this.lb_coupon = new System.Windows.Forms.Label();
-            this.dg_tickets = new System.Windows.Forms.DataGridView();
             this.label6 = new System.Windows.Forms.Label();
+            this.btn_cupon = new System.Windows.Forms.Button();
+            this.dg_tickets = new System.Windows.Forms.DataGridView();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dg_tickets)).BeginInit();
             this.SuspendLayout();
@@ -58,7 +59,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1014, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(1014, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -67,7 +68,7 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.kilépésToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 26);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // kilépésToolStripMenuItem
@@ -82,7 +83,7 @@
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.infoToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 26);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // infoToolStripMenuItem
@@ -157,7 +158,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(728, 119);
+            this.label5.Location = new System.Drawing.Point(702, 123);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(33, 17);
             this.label5.TabIndex = 11;
@@ -165,14 +166,14 @@
             // 
             // tb_name
             // 
-            this.tb_name.Location = new System.Drawing.Point(768, 117);
+            this.tb_name.Location = new System.Drawing.Point(742, 121);
             this.tb_name.Name = "tb_name";
             this.tb_name.Size = new System.Drawing.Size(156, 22);
             this.tb_name.TabIndex = 12;
             // 
             // tb_coupon
             // 
-            this.tb_coupon.Location = new System.Drawing.Point(795, 524);
+            this.tb_coupon.Location = new System.Drawing.Point(810, 523);
             this.tb_coupon.Name = "tb_coupon";
             this.tb_coupon.Size = new System.Drawing.Size(156, 22);
             this.tb_coupon.TabIndex = 14;
@@ -186,30 +187,45 @@
             this.lb_coupon.TabIndex = 13;
             this.lb_coupon.Text = "Kupon";
             // 
-            // dg_tickets
-            // 
-            this.dg_tickets.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dg_tickets.Location = new System.Drawing.Point(731, 188);
-            this.dg_tickets.Name = "dg_tickets";
-            this.dg_tickets.RowHeadersWidth = 51;
-            this.dg_tickets.RowTemplate.Height = 24;
-            this.dg_tickets.Size = new System.Drawing.Size(240, 150);
-            this.dg_tickets.TabIndex = 15;
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(728, 159);
+            this.label6.Location = new System.Drawing.Point(702, 160);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(121, 17);
             this.label6.TabIndex = 16;
             this.label6.Text = "Kiválaszott jegyek";
+            // 
+            // btn_cupon
+            // 
+            this.btn_cupon.Location = new System.Drawing.Point(810, 564);
+            this.btn_cupon.Name = "btn_cupon";
+            this.btn_cupon.Size = new System.Drawing.Size(156, 23);
+            this.btn_cupon.TabIndex = 17;
+            this.btn_cupon.Text = "Aktiválás";
+            this.btn_cupon.UseVisualStyleBackColor = true;
+            // 
+            // dg_tickets
+            // 
+            this.dg_tickets.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader;
+            this.dg_tickets.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
+            this.dg_tickets.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.dg_tickets.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dg_tickets.ColumnHeadersVisible = false;
+            this.dg_tickets.Location = new System.Drawing.Point(705, 192);
+            this.dg_tickets.Name = "dg_tickets";
+            this.dg_tickets.RowHeadersVisible = false;
+            this.dg_tickets.RowHeadersWidth = 51;
+            this.dg_tickets.RowTemplate.Height = 24;
+            this.dg_tickets.Size = new System.Drawing.Size(297, 150);
+            this.dg_tickets.TabIndex = 15;
             // 
             // UserForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1014, 1042);
+            this.Controls.Add(this.btn_cupon);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.dg_tickets);
             this.Controls.Add(this.tb_coupon);
@@ -253,7 +269,8 @@
         private System.Windows.Forms.TextBox tb_name;
         private System.Windows.Forms.TextBox tb_coupon;
         private System.Windows.Forms.Label lb_coupon;
-        private System.Windows.Forms.DataGridView dg_tickets;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button btn_cupon;
+        private System.Windows.Forms.DataGridView dg_tickets;
     }
 }
