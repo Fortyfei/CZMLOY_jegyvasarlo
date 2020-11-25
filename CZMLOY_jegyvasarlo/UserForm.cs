@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Data.SQLite;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Windows.Forms.VisualStyles;
+using System.Diagnostics;
+using System.Runtime.Remoting;
 
 namespace CZMLOY_jegyvasarlo
 {
@@ -20,6 +22,7 @@ namespace CZMLOY_jegyvasarlo
         SQLiteCommand cmd;
         DataBase db = new DataBase();
         Theatre th;
+        Customer custormer;
 
         private int selectedPlayId;
         private List<Play> listofPlays=new List<Play>();
@@ -27,7 +30,9 @@ namespace CZMLOY_jegyvasarlo
         public UserForm()
         {
             InitializeComponent();
-
+            th = new Theatre(db);
+            custormer = new Customer();
+            dg_tickets.DataSource = custormer.Reserved;
             try
             {
                 cmd = new SQLiteCommand("Select * from ELOADASOK", db.GetConnecton());
@@ -45,12 +50,9 @@ namespace CZMLOY_jegyvasarlo
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(ex.StackTrace);
+                Debug.WriteLine(ex.StackTrace);
             }
         }
-
-
-
 
         private void kilépésToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -64,40 +66,54 @@ namespace CZMLOY_jegyvasarlo
             MessageBox.Show("Készítette: Koloh János Krisztián (CZMLOY)\n");
         }
 
-
         private void cmb_eloadasok_SelectedIndexChanged(object sender, EventArgs e)
         {
-            th = new Theatre(db);
-            try
+            selectedPlayId = getPlayId(cmb_eloadasok.Text);
+            th.findOccupied(selectedPlayId);
+            pn_floor.Controls.Clear();
+            pn_upper.Controls.Clear();
+            int i = 1;
+            foreach(Seat s in th.getLowerSeats())
             {
-
-                selectedPlayId = getPlayId(cmb_eloadasok.Text);
-                DataTable seats = new DataTable();
-                cmd = new SQLiteCommand(
-                    "SELECT * FROM HELYEK"
-                    , db.GetConnecton()
-                    );
-                sda = new SQLiteDataAdapter(cmd);
-                sda.Fill(seats);
-                foreach(DataRow r in seats.Rows)
-                {
-                    int id = int.Parse(r[0].ToString());
-                    int pos = int.Parse(r[1].ToString());
-                    int row = int.Parse(r[2].ToString());
-                    int col = int.Parse(r[3].ToString());
-                    String cat = r[4].ToString();
-                    Seat s = new Seat(id, pos, row, col, cat);
-                    th.addSeat(s);
-                }
-                }catch(Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex.StackTrace);
+                Button btn = s.setupButton();
+                btn.Click += new EventHandler(clicked);
+                if (i % 10 == 0) pn_floor.SetFlowBreak(btn, true);
+                pn_floor.Controls.Add(btn);
+                ++i;
             }
-            th.setAvailabiity(th.getOccupied(selectedPlayId));
-            dgv_zsollye.DataSource = th.getList();
+            i = 1;
+            foreach (Seat s in th.getUpperSeats())
+            {
+                Button btn = s.setupButton();
+                btn.Click += new EventHandler(clicked);
+                if (i % 8 == 0) pn_upper.SetFlowBreak(btn, true);
+                pn_upper.Controls.Add(btn);
+                ++i;
+            }
 
         }
 
+        private void clicked(object sender,EventArgs e)
+        {
+            Button btn = sender as Button;
+            Seat s = th.getSeatById(int.Parse(btn.Name));
+            Button find= pn_floor.Controls.Find(btn.Name,true).FirstOrDefault() as Button;
+            if (s.Free)
+            {
+                custormer.addSeat(s);
+                s.Free = false;
+                s.Choosen = true;
+                find.BackColor = Color.Yellow;
+                //MessageBox.Show("Added");
+            }else if (s.Choosen)
+            {
+                custormer.removeSeat(s);
+                s.Free = true;
+                s.Choosen = false;
+                find.BackColor = Color.Green;
+                //MessageBox.Show("Removed");
+            }
+        }
 
         private int getPlayId(string inp)
         {

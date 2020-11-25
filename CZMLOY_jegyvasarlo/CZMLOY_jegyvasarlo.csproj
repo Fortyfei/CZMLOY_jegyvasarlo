@@ -71,6 +71,7 @@
     <Compile Include="AdminForm.Designer.cs">
       <DependentUpon>AdminForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Customer.cs" />
     <Compile Include="DataBase.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>

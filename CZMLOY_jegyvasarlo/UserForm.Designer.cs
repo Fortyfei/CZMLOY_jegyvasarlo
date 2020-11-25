@@ -35,14 +35,19 @@
             this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cmb_eloadasok = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.dgv_zsollye = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.dgv_karzat = new System.Windows.Forms.DataGridView();
+            this.pn_floor = new System.Windows.Forms.FlowLayoutPanel();
+            this.pn_upper = new System.Windows.Forms.FlowLayoutPanel();
             this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.tb_name = new System.Windows.Forms.TextBox();
+            this.tb_coupon = new System.Windows.Forms.TextBox();
+            this.lb_coupon = new System.Windows.Forms.Label();
+            this.dg_tickets = new System.Windows.Forms.DataGridView();
+            this.label6 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_zsollye)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_karzat)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dg_tickets)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -53,7 +58,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(742, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1014, 30);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -106,21 +111,11 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Előadások";
             // 
-            // dgv_zsollye
-            // 
-            this.dgv_zsollye.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_zsollye.Location = new System.Drawing.Point(61, 119);
-            this.dgv_zsollye.Name = "dgv_zsollye";
-            this.dgv_zsollye.RowHeadersWidth = 51;
-            this.dgv_zsollye.RowTemplate.Height = 24;
-            this.dgv_zsollye.Size = new System.Drawing.Size(383, 233);
-            this.dgv_zsollye.TabIndex = 3;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label2.Location = new System.Drawing.Point(193, 87);
+            this.label2.Location = new System.Drawing.Point(322, 86);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(122, 29);
             this.label2.TabIndex = 4;
@@ -129,41 +124,103 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(4, 233);
+            this.label3.Location = new System.Drawing.Point(4, 123);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(51, 17);
             this.label3.TabIndex = 5;
             this.label3.Text = "zsöllye";
             // 
-            // dgv_karzat
+            // pn_floor
             // 
-            this.dgv_karzat.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_karzat.Location = new System.Drawing.Point(61, 388);
-            this.dgv_karzat.Name = "dgv_karzat";
-            this.dgv_karzat.RowHeadersWidth = 51;
-            this.dgv_karzat.RowTemplate.Height = 24;
-            this.dgv_karzat.Size = new System.Drawing.Size(383, 233);
-            this.dgv_karzat.TabIndex = 6;
+            this.pn_floor.Location = new System.Drawing.Point(61, 119);
+            this.pn_floor.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
+            this.pn_floor.Name = "pn_floor";
+            this.pn_floor.Size = new System.Drawing.Size(620, 440);
+            this.pn_floor.TabIndex = 8;
+            // 
+            // pn_upper
+            // 
+            this.pn_upper.Location = new System.Drawing.Point(61, 570);
+            this.pn_upper.Name = "pn_upper";
+            this.pn_upper.Size = new System.Drawing.Size(620, 400);
+            this.pn_upper.TabIndex = 9;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(4, 510);
+            this.label4.Location = new System.Drawing.Point(4, 570);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(47, 17);
-            this.label4.TabIndex = 7;
+            this.label4.TabIndex = 10;
             this.label4.Text = "karzat";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(728, 119);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(33, 17);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "Név";
+            // 
+            // tb_name
+            // 
+            this.tb_name.Location = new System.Drawing.Point(768, 117);
+            this.tb_name.Name = "tb_name";
+            this.tb_name.Size = new System.Drawing.Size(156, 22);
+            this.tb_name.TabIndex = 12;
+            // 
+            // tb_coupon
+            // 
+            this.tb_coupon.Location = new System.Drawing.Point(795, 524);
+            this.tb_coupon.Name = "tb_coupon";
+            this.tb_coupon.Size = new System.Drawing.Size(156, 22);
+            this.tb_coupon.TabIndex = 14;
+            // 
+            // lb_coupon
+            // 
+            this.lb_coupon.AutoSize = true;
+            this.lb_coupon.Location = new System.Drawing.Point(755, 526);
+            this.lb_coupon.Name = "lb_coupon";
+            this.lb_coupon.Size = new System.Drawing.Size(49, 17);
+            this.lb_coupon.TabIndex = 13;
+            this.lb_coupon.Text = "Kupon";
+            // 
+            // dg_tickets
+            // 
+            this.dg_tickets.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dg_tickets.Location = new System.Drawing.Point(731, 188);
+            this.dg_tickets.Name = "dg_tickets";
+            this.dg_tickets.RowHeadersWidth = 51;
+            this.dg_tickets.RowTemplate.Height = 24;
+            this.dg_tickets.Size = new System.Drawing.Size(240, 150);
+            this.dg_tickets.TabIndex = 15;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(728, 159);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(121, 17);
+            this.label6.TabIndex = 16;
+            this.label6.Text = "Kiválaszott jegyek";
             // 
             // UserForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(742, 665);
+            this.ClientSize = new System.Drawing.Size(1014, 1042);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.dg_tickets);
+            this.Controls.Add(this.tb_coupon);
+            this.Controls.Add(this.lb_coupon);
+            this.Controls.Add(this.tb_name);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.dgv_karzat);
+            this.Controls.Add(this.pn_upper);
+            this.Controls.Add(this.pn_floor);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.dgv_zsollye);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmb_eloadasok);
             this.Controls.Add(this.menuStrip1);
@@ -172,8 +229,7 @@
             this.Text = "UserForm";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_zsollye)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_karzat)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dg_tickets)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -188,10 +244,16 @@
         private System.Windows.Forms.ToolStripMenuItem infoToolStripMenuItem;
         private System.Windows.Forms.ComboBox cmb_eloadasok;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dgv_zsollye;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DataGridView dgv_karzat;
+        private System.Windows.Forms.FlowLayoutPanel pn_floor;
+        private System.Windows.Forms.FlowLayoutPanel pn_upper;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox tb_name;
+        private System.Windows.Forms.TextBox tb_coupon;
+        private System.Windows.Forms.Label lb_coupon;
+        private System.Windows.Forms.DataGridView dg_tickets;
+        private System.Windows.Forms.Label label6;
     }
 }
