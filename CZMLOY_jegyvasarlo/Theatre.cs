@@ -98,7 +98,7 @@ namespace CZMLOY_jegyvasarlo
             }
         }
 
-        public void findOccupied(int eloadasId)
+        public List<int> findOccupied(int eloadasId)
         {
             resetSeats();
             List<int> seatIds = new List<int>();
@@ -123,30 +123,55 @@ namespace CZMLOY_jegyvasarlo
                 Debug.WriteLine(ex.StackTrace);
             }
 
-
-            //floor
-            for(int i = 0; i <4 ; ++i)
+            for (int i = 0; i < 6; ++i)
             {
-                for(int j = 0; j < 8; ++j)
+                for (int j = 0; j < 10; ++j)
                 {
                     if (seatIds.Contains(lower[i, j].Id))
                     {
-                        if(i-1>=0&&j-1>=0) lower[i - 1, j - 1].Free = false; //NW
-                        if (i - 1 >= 0) lower[i-1, j].Free = false; //N
-                        if (i - 1 >= 0 && j + 1 < 8) lower[i-1, j+1].Free = false; //NE
-                        if (j - 2 >= 0) lower[i, j-2].Free = false; //WW
-                        if (j - 1 >= 0) lower[i, j-1].Free = false; //W
                         lower[i, j].Free = false; //C
-                        if (j + 1 <8) lower[i, j+1].Free = false; //E
-                        if (j + 2 <8) lower[i, j+2].Free = false; //EE
-                        if (i + 1 < 4 && j - 1 >= 0) lower[i+1, j-1].Free = false;  //SW
-                        if (i + 1 < 4) lower[i+1, j].Free = false; //S
-                        if (i + 1 < 4 && j + 1 < 8) lower[i+1, j+1].Free = false; //SE
                     }
                 }
             }
 
-            //upper
+            for (int i = 0; i < 4; ++i)
+            {
+                for (int j = 0; j < 8; ++j)
+                {
+                    if (seatIds.Contains(upper[i, j].Id))
+                    {
+                        upper[i, j].Free = false; //C
+                    }
+                }
+            }
+
+
+            return seatIds;
+        }
+
+        public void coronaRes(List<int> seatIds)
+        {
+            for (int i = 0; i < 4; ++i)
+            {
+                for (int j = 0; j < 8; ++j)
+                {
+                    if (seatIds.Contains(upper[i, j].Id))
+                    {
+                        if (i - 1 >= 0 && j - 1 >= 0) upper[i - 1, j - 1].Free = false; //NW
+                        if (i - 1 >= 0) upper[i - 1, j].Free = false; //N
+                        if (i - 1 >= 0 && j + 1 < 8) upper[i - 1, j + 1].Free = false; //NE
+                        if (j - 2 >= 0) upper[i, j - 2].Free = false; //WW
+                        if (j - 1 >= 0) upper[i, j - 1].Free = false; //W
+                        //upper[i, j].Free = false; //C
+                        if (j + 1 < 8) upper[i, j + 1].Free = false; //E
+                        if (j + 2 < 8) upper[i, j + 2].Free = false; //EE
+                        if (i + 1 < 4 && j - 1 >= 0) upper[i + 1, j - 1].Free = false;  //SW
+                        if (i + 1 < 4) upper[i + 1, j].Free = false; //S
+                        if (i + 1 < 4 && j + 1 < 8) upper[i + 1, j + 1].Free = false; //SE
+                    }
+                }
+            }
+
             for (int i = 0; i < 6; ++i)
             {
                 for (int j = 0; j < 10; ++j)
@@ -158,7 +183,7 @@ namespace CZMLOY_jegyvasarlo
                         if (i - 1 >= 0 && j + 1 < 10) lower[i - 1, j + 1].Free = false; //NE
                         if (j - 2 >= 0) lower[i, j - 2].Free = false; //WW
                         if (j - 1 >= 0) lower[i, j - 1].Free = false; //W
-                        lower[i, j].Free = false; //C
+                        //lower[i, j].Free = false; //C
                         if (j + 1 < 10) lower[i, j + 1].Free = false; //E
                         if (j + 2 < 10) lower[i, j + 2].Free = false; //EE
                         if (i + 1 < 6 && j - 1 >= 0) lower[i + 1, j - 1].Free = false;  //SW
@@ -167,9 +192,6 @@ namespace CZMLOY_jegyvasarlo
                     }
                 }
             }
-
-
-            Console.WriteLine("OK");
         }
 
         private void resetSeats()

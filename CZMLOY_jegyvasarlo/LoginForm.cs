@@ -48,8 +48,7 @@ namespace CZMLOY_jegyvasarlo
                         break;
 
                     default:
-                        lb_invalid.Text = "Téves felhasználónév vagy jelszó";
-                        System.Diagnostics.Debug.WriteLine("FASZ");
+                        
                         break;
 
                 }
@@ -57,6 +56,7 @@ namespace CZMLOY_jegyvasarlo
             catch(Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex.StackTrace);
+                lb_invalid.Text = "Téves felhasználónév vagy jelszó";
             }
             finally
             {
