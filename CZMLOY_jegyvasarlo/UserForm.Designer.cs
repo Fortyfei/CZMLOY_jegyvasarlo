@@ -47,6 +47,9 @@
             this.label6 = new System.Windows.Forms.Label();
             this.btn_cupon = new System.Windows.Forms.Button();
             this.dg_tickets = new System.Windows.Forms.DataGridView();
+            this.btn_pay = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.lb_price = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dg_tickets)).BeginInit();
             this.SuspendLayout();
@@ -59,7 +62,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1014, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1014, 30);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -68,7 +71,7 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.kilépésToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 26);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // kilépésToolStripMenuItem
@@ -83,7 +86,7 @@
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.infoToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 26);
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // infoToolStripMenuItem
@@ -173,7 +176,7 @@
             // 
             // tb_coupon
             // 
-            this.tb_coupon.Location = new System.Drawing.Point(810, 523);
+            this.tb_coupon.Location = new System.Drawing.Point(757, 387);
             this.tb_coupon.Name = "tb_coupon";
             this.tb_coupon.Size = new System.Drawing.Size(156, 22);
             this.tb_coupon.TabIndex = 14;
@@ -181,9 +184,10 @@
             // lb_coupon
             // 
             this.lb_coupon.AutoSize = true;
-            this.lb_coupon.Location = new System.Drawing.Point(755, 526);
+            this.lb_coupon.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lb_coupon.Location = new System.Drawing.Point(702, 390);
             this.lb_coupon.Name = "lb_coupon";
-            this.lb_coupon.Size = new System.Drawing.Size(49, 17);
+            this.lb_coupon.Size = new System.Drawing.Size(54, 17);
             this.lb_coupon.TabIndex = 13;
             this.lb_coupon.Text = "Kupon";
             // 
@@ -198,7 +202,7 @@
             // 
             // btn_cupon
             // 
-            this.btn_cupon.Location = new System.Drawing.Point(810, 564);
+            this.btn_cupon.Location = new System.Drawing.Point(757, 428);
             this.btn_cupon.Name = "btn_cupon";
             this.btn_cupon.Size = new System.Drawing.Size(156, 23);
             this.btn_cupon.TabIndex = 17;
@@ -220,11 +224,45 @@
             this.dg_tickets.Size = new System.Drawing.Size(297, 150);
             this.dg_tickets.TabIndex = 15;
             // 
+            // btn_pay
+            // 
+            this.btn_pay.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btn_pay.Location = new System.Drawing.Point(774, 614);
+            this.btn_pay.Name = "btn_pay";
+            this.btn_pay.Size = new System.Drawing.Size(192, 83);
+            this.btn_pay.TabIndex = 18;
+            this.btn_pay.Text = "Fizetés";
+            this.btn_pay.UseVisualStyleBackColor = true;
+            this.btn_pay.Click += new System.EventHandler(this.btn_pay_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label7.Location = new System.Drawing.Point(705, 494);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(91, 20);
+            this.label7.TabIndex = 19;
+            this.label7.Text = "Fizetendő";
+            // 
+            // lb_price
+            // 
+            this.lb_price.AutoSize = true;
+            this.lb_price.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lb_price.Location = new System.Drawing.Point(803, 494);
+            this.lb_price.Name = "lb_price";
+            this.lb_price.Size = new System.Drawing.Size(36, 20);
+            this.lb_price.TabIndex = 20;
+            this.lb_price.Text = "aaa";
+            // 
             // UserForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1014, 1042);
+            this.Controls.Add(this.lb_price);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.btn_pay);
             this.Controls.Add(this.btn_cupon);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.dg_tickets);
@@ -272,5 +310,8 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btn_cupon;
         private System.Windows.Forms.DataGridView dg_tickets;
+        private System.Windows.Forms.Button btn_pay;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lb_price;
     }
 }

@@ -8,19 +8,18 @@ using System.Data.SQLite;
 using System.Data;
 using System.Windows.Forms;
 using System.Drawing.Text;
+using System.ComponentModel;
 
 namespace CZMLOY_jegyvasarlo
 {
     class Customer
     {
         DataGridView gd;
-        String name;
-        String coupon_id;
+        int cupon_id = 0;
         int discount = 0;
+        int price = 0;
         List<Seat> reserved = new List<Seat>();
-        int priceToPay;
-
-        struct element
+        struct Element
         {
 
             public int id { get; set; }
@@ -29,7 +28,7 @@ namespace CZMLOY_jegyvasarlo
             public String category { get; set; }
             public int price { get; set; }
 
-            public element(int id, int pos, string place, string category)
+            public Element(int id, int pos, string place, string category)
             {
                 this.id = id;
                 this.pos = whatPos(pos);
@@ -44,16 +43,12 @@ namespace CZMLOY_jegyvasarlo
                 {
                     case "FOLDSZINT":
                         return 4000;
-                        break;
                     case "KARZAT":
                         return 6000;
-                        break;
                     case "VIP":
                         return 12000;
-                        break;
                     default:
                         return 0;
-                        break;
                 }
             }
 
@@ -63,15 +58,23 @@ namespace CZMLOY_jegyvasarlo
                 {
                     case 0:
                         return "Zsöllye";
-                        break;
                     case 1:
                         return "Karzat";
-                        break;
                     default:
                         return "Bent";
-                        break;
                 }
             }
+        }
+        BindingList<Element> elements = new BindingList<Element>();
+
+        public void calcPrice(Label label)
+        {
+            price = 0;
+            foreach(Element e in elements)
+            {
+               price += e.price - e.price * discount / 100;
+            }
+            label.Text = price.ToString()+" HUF";
         }
 
         public Customer(DataGridView gd)
@@ -92,20 +95,20 @@ namespace CZMLOY_jegyvasarlo
             Reserved.Remove(s);
             updateDataView();
         }
-        
+
         public void getDiscount(String inp)
         {
             try
             {
-                DataBase db=new DataBase();
-                SQLiteCommand cmd=new SQLiteCommand("Select id, ertek from KEDVEZMENYEK where kupon='"+inp+"'",db.GetConnecton());
-                SQLiteDataAdapter sda=new SQLiteDataAdapter(cmd);
+                DataBase db = new DataBase();
+                SQLiteCommand cmd = new SQLiteCommand("Select id, ertek from KEDVEZMENYEK where kupon='" + inp + "'", db.GetConnecton());
+                SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 sda.Fill(dt);
-                coupon_id=dt.Rows[0][0].ToString();
-                discount =int.Parse(dt.Rows[0][1].ToString());
+                cupon_id = int.Parse(dt.Rows[0][0].ToString());
+                discount = int.Parse(dt.Rows[0][1].ToString());
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Debug.WriteLine(ex.StackTrace);
             }
@@ -113,16 +116,50 @@ namespace CZMLOY_jegyvasarlo
 
         public void updateDataView()
         {
-            List<element> elements = new List<element>();
-            foreach(Seat s in reserved)
+            elements.Clear();
+            foreach (Seat s in reserved)
             {
-                element e = new element(s.Id,s.Pos,s.getPlace(),s.Cat);
+                Element e = new Element(s.Id, s.Pos, s.getPlace(), s.Cat);
                 elements.Add(e);
             }
 
             gd.DataSource = elements;
-            
+
         }
 
+        public void payment(String name,int playId,DataBase db)
+        {
+            if (!name.Equals(""))
+            {
+                db.openConn();
+                SQLiteTransaction trans = db.GetConnecton().BeginTransaction();
+                try
+                {
+                    foreach(Element e in elements)
+                    {
+                       
+                        SQLiteCommand cmd= new SQLiteCommand("INSERT INTO VETELEK (eloadas_id,hely_id,vevo,kupon_id)" +
+                            "VALUES ("+playId+","+e.id+",'"+name+"',"+cupon_id+")",db.GetConnecton());
+                        cmd.ExecuteNonQuery();
+                        MessageBox.Show("Sikeres tranzakció! Fizetett összeg: {0}", price.ToString());
+                    }
+                    trans.Commit();
+                }catch(Exception ex)
+                {
+                    trans.Rollback();
+                    Debug.WriteLine(ex.StackTrace);
+                    MessageBox.Show("Sikertelen tranzakció!");
+                }
+                finally
+                {
+                    db.closeConn();
+                }
+                
+            }
+            else
+            {
+                MessageBox.Show("Adja meg a nevét");
+            }
+        }
     }
 }

@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
-using System.Windows.Forms.VisualStyles;
 using System.Diagnostics;
-using System.Runtime.Remoting;
 
 namespace CZMLOY_jegyvasarlo
 {
@@ -71,28 +66,8 @@ namespace CZMLOY_jegyvasarlo
         private void cmb_eloadasok_SelectedIndexChanged(object sender, EventArgs e)
         {
             selectedPlayId = getPlayId(cmb_eloadasok.Text);
-            th.findOccupied(selectedPlayId);
-            pn_floor.Controls.Clear();
-            pn_upper.Controls.Clear();
-            int i = 1;
-            foreach(Seat s in th.getLowerSeats())
-            {
-                Button btn = s.setupButton();
-                btn.Click += new EventHandler(clickedLower);
-                if (i % 10 == 0) pn_floor.SetFlowBreak(btn, true);
-                pn_floor.Controls.Add(btn);
-                ++i;
-            }
-            i = 1;
-            foreach (Seat s in th.getUpperSeats())
-            {
-                Button btn = s.setupButton();
-                btn.Click += new EventHandler(clickedUpper);
-                if (i % 8 == 0) pn_upper.SetFlowBreak(btn, true);
-                pn_upper.Controls.Add(btn);
-                ++i;
-            }
 
+            reset();
         }
 
         private void clickedLower(object sender, EventArgs e)
@@ -114,6 +89,7 @@ namespace CZMLOY_jegyvasarlo
                 s.Choosen = false;
                 find.BackColor = Color.Green;
             }
+            custormer.calcPrice(lb_price);
         }
 
         private void clickedUpper(object sender, EventArgs e)
@@ -135,6 +111,7 @@ namespace CZMLOY_jegyvasarlo
                 s.Choosen = false;
                 find.BackColor = Color.Green;
             }
+            custormer.calcPrice(lb_price);
         }
 
         private int getPlayId(string inp)
@@ -152,7 +129,40 @@ namespace CZMLOY_jegyvasarlo
 
         private void cuponClick(object sender, EventArgs e)
         {
-            custormer.getDiscount(tb_coupon.Text); 
+            custormer.getDiscount(tb_coupon.Text);
+            custormer.calcPrice(lb_price);
+        }
+
+        private void btn_pay_Click(object sender, EventArgs e)
+        {
+            custormer.payment(tb_name.Text,selectedPlayId,db);
+            reset();
+        }
+
+        private void reset()
+        {
+            List<int> occupied = th.findOccupied(selectedPlayId);
+            th.coronaRes(occupied);
+            pn_floor.Controls.Clear();
+            pn_upper.Controls.Clear();
+            int i = 1;
+            foreach (Seat s in th.getLowerSeats())
+            {
+                Button btn = s.setupButton();
+                btn.Click += new EventHandler(clickedLower);
+                if (i % 10 == 0) pn_floor.SetFlowBreak(btn, true);
+                pn_floor.Controls.Add(btn);
+                ++i;
+            }
+            i = 1;
+            foreach (Seat s in th.getUpperSeats())
+            {
+                Button btn = s.setupButton();
+                btn.Click += new EventHandler(clickedUpper);
+                if (i % 8 == 0) pn_upper.SetFlowBreak(btn, true);
+                pn_upper.Controls.Add(btn);
+                ++i;
+            }
         }
     }
 }
